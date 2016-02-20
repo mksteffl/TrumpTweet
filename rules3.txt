@@ -1,0 +1,16 @@
+#clauses
+S -> I think NP VP SAID .
+S -> AS , I want to VB DT NP SAID .
+S -> I VBP NP AS SAID .
+NP -> DT JJ circus
+NP -> DT NN
+NP -> DT NNP
+VP -> VBN NP
+VP -> VBN
+DT VBG NN
+SAID ->, said NNP NNS 
+AS -> as NNS VBN to VB
+#terminals
+VBZ -> lets
+JJ -> fuck
+NN -> hey | baby
