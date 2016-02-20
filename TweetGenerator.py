@@ -28,7 +28,7 @@ class TweetGenerator(object):
 
     #will generate a complete sentence, starting with a randomly selected word and
     #ending when it encounters a '.'/'?'/'!'
-    def generate_sentence(self):
+    def generate_tweet(self):
         EOS = ['.', '?', '!']
         li = [key for key in self.d.keys() if key[0][0].isupper()]
         key = choice(li)

@@ -33,4 +33,4 @@ if __name__ == "__main__":
     twitter.timeline()
     file  = open("text.txt", "rt")
     tweetGen = TweetGenerator.TweetGenerator(file)
-    twitter.tweet(tweetGen.generate_sentence())
+    twitter.tweet(tweetGen.generate_tweet())
