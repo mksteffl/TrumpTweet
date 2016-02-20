@@ -26,7 +26,8 @@ def build_dict(words):
 
     return d
 
-
+#will generate a complete sentence, starting with a randomly selected word and
+#ending when it encounters a '.'/'?'/'!'
 def generate_sentence(d):
     li = [key for key in d.keys() if key[0][0].isupper()]
     key = choice(li)
@@ -51,8 +52,7 @@ def generate_sentence(d):
 
 
 def main():
-    fname = sys.argv[1]
-    with open(fname, "rt") as f:
+    with open("Cant Stump The Trump.txt", "rt") as f:
         text = f.read()
 
     words = text.split()
@@ -67,8 +67,4 @@ def main():
 ####################
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        print("Error: provide an input corpus file.")
-        sys.exit(1)
-    # else
     main()

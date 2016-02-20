@@ -1,3 +1,4 @@
+import TweetGenerator
 import tweepy
 import re
 
@@ -30,4 +31,6 @@ class TwitterAPI:
 if __name__ == "__main__":
     twitter = TwitterAPI()
     twitter.timeline()
-    twitter.tweet()
+    file  = open("text.txt", "rt")
+    tweetGen = TweetGenerator.TweetGenerator(file)
+    twitter.tweet(tweetGen.generate_sentence())
