@@ -1,0 +1,1 @@
+TrumpTweet psudo-randomly generates tweets based on a corpus of things that Trump has said/tweeted in the past
