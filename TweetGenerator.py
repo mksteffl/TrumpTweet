@@ -32,7 +32,6 @@ class TweetGenerator(object):
         EOS = ['.', '?', '!']
         li = [key for key in self.d.keys() if key[0][0].isupper()]
         key = choice(li)
-
         li = []
         first, second = key
         li.append(first)

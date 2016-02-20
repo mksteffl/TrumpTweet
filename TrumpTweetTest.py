@@ -1,8 +1,8 @@
 import TweetGenerator
 
-file  = open("text.txt", "rt")
+file  = open("Cant Stump The Trump.txt", "rt")
 tweetGen = TweetGenerator.TweetGenerator(file)
 
-for i in range(0,6):
-    sampleTweet = tweetGen.generate_sentence()
+for i in range(0,10):
+    sampleTweet = tweetGen.generate_tweet()
     print(sampleTweet)

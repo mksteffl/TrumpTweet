@@ -30,4 +30,4 @@ class TwitterAPI:
 if __name__ == "__main__":
     twitter = TwitterAPI()
     twitter.timeline()
-    twitter.tweet()
+    twitter.tweet("ahh")
