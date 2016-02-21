@@ -4,7 +4,7 @@ import sys
 from collections import defaultdict
 from random import random
 
-archive = open("Output.txt")
+archive = open("corpus.txt")
 titles = archive.read().split("\n")
 archive.close()
 markov_map = defaultdict(lambda:defaultdict(int))
@@ -45,8 +45,12 @@ while len(sentences) < 1:
     flag = True
     for title in titles: #Prune titles that are substrings of actual titles
         if sentence in title:
+            print 'Real tweet :('
             flag = False
             break
+    if len(sentence) > 140:
+        print 'Too long ;)'
+        flag = False
     if flag:
         sentences.append(sentence)
 
