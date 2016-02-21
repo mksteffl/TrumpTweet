@@ -1,51 +1,64 @@
-from random import choice
+from collections import defaultdict
+from random import random
 
 class TweetGenerator(object):
 
-    def __init__(self, open_file):
-        self.corpus = open_file.read()
-        self.words = self.corpus.split()
-        self.d = self.build_dict(self.words)
+    def __init__(self, corpus_file):
+        self.titles = corpus_file.open().split('\n')
+        self.markov_map = defaultdict(lambda:defaultdict(int))
+        self.lookback = 2
+        self.create_dict()
 
-    def build_dict(self, words):
-        """
-        Build a dictionary from the words.
-        (word1, word2) => [w1, w2, ...]  # key: tuple; value: list
-        """
-        d = {}
-        for i, word in enumerate(words):
-            try:
-                first, second, third = words[i], words[i+1], words[i+2]
-            except IndexError:
-                break
-            key = (first, second)
-            if key not in d:
-                d[key] = []
+    def create_dict(self):
+        #Generate map in the form word1 -> word2 -> occurences of word2 after word1
+        for title in self.titles[:-1]:
+            title = title.split()
+            if len(title) > self.lookback:
+                for i in range(len(title)+1):
+                    self.markov_map[' '.join(title[max(0,i-self.lookback):i])][' '.join(title[i:i+1])] += 1
 
-            d[key].append(third)
+        #Convert map to the word1 -> word2 -> probability of word2 after word1
+        for word, following in self.markov_map.items():
+            total = float(sum(following.values()))
+            for key in following:
+                following[key] /= total
 
-        return d
+    #Typical sampling from a categorical distribution
+    def sample(self, items):
+        next_word = None
+        t = 0.0
+        for k, v in items:
+            t += v
+            if t and random() < v/t:
+                next_word = k
+        return next_word
 
-    #will generate a complete sentence, starting with a randomly selected word and
-    #ending when it encounters a '.'/'?'/'!'
     def generate_tweet(self):
-        EOS = ['.', '?', '!']
-        li = [key for key in self.d.keys() if key[0][0].isupper()]
-        key = choice(li)
-        li = []
-        first, second = key
-        li.append(first)
-        li.append(second)
-        while True:
-            try:
-                third = choice(self.d[key])
-            except KeyError:
+        sentences = []
+        while len(sentences) < 1:
+            sentence = []
+        next_word = self.sample(self.markov_map[''].items())
+        while next_word != '':
+            sentence.append(next_word)
+            next_word = self.sample(self.markov_map[' '.join(sentence[-self.lookback:])].items())
+        sentence = ' '.join(sentence)
+        flag = True
+        for title in self.titles: #Prune titles that are substrings of actual titles
+            if sentence in title:
+                print('Real tweet :(')
+                flag = False
                 break
-            li.append(third)
-            if third[-1] in EOS:
-                break
-            # else
-            key = (second, third)
-            first, second = key
+        if len(sentence) > 140:
+            print('Too long ;)')
+            flag = False
+        if flag:
+            sentences.append(sentence)
 
-        return ' '.join(li)
+        for sentence in sentences:
+            return(sentence)
+
+
+
+
+
+
