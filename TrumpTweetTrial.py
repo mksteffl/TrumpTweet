@@ -19,7 +19,7 @@ class TwitterAPI:
         print(self.api.trends_place(1))
 
     def timeline(self):
-        public_tweets = self.api.user_timeline(id="realdonaldtrump")
+        public_tweets = self.api.user_timeline(id="realDonaldTrump")
         for tweet in public_tweets:
             string = tweet.text + ' '
             search = '(?<=\#)(.*?)(?=\ )'

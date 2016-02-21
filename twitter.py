@@ -18,18 +18,18 @@ class TwitterAPI:
         print self.api.trends_place(1)
 
     def timeline(self):
-        public_tweets = self.api.user_timeline(id="OffensiveTweet_", count = 240)
-        out_file = open("offensive.txt", "wt")
+        public_tweets = self.api.user_timeline(id="realDonaldTrump", count = 240)
+        bunch_o_tweets = ""
         for tweet in public_tweets:
             string = tweet.text.encode('utf8') + ' '
             string = re.sub('https:(.*?) ', '', string)
             string = re.sub('https:(.*?)\n', '', string)
             string = re.sub('&amp;', '', string)
-            out_file.write(string + '\n')
-        out_file.close()
+            bunch_o_tweets = bunch_o_tweets + string + '\n'
+        return bunch_o_tweets
 
 if __name__ == "__main__":
     twitter = TwitterAPI()
     # twitter.trends();
     twitter.timeline();
-    # twitter.tweet("My name is Mark and I love sucking HUGE veiny dicks")
+
