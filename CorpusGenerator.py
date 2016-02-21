@@ -35,8 +35,7 @@ class CorpusGenerator(object):
         pres_announce = announce_file.read()
         random_shit = random_file.read()
         self.out_file.write(pres_announce)
-        self.out_pile.write(random_shit)
+        self.out_file.write(random_shit)
 
 if __name__ == "__main__":
     CorpusGenerator()
-
